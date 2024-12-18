@@ -1,6 +1,7 @@
 package javabean;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Task {
     int id;
@@ -15,6 +16,8 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.status = "not done";
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public String getDescription() {
@@ -59,16 +62,26 @@ public class Task {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "{" +
+                "'id': " + id +
+                ", 'description': '" + description + '\'' +
+                ", 'status': '" + status + '\'' +
+                ", 'createdAt': '" + createdAt + '\'' +
+                ", 'updatedAt': '" + updatedAt + '\'' +
+                '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (!(o instanceof Task task)) return false;
+        return id == task.id && Objects.equals(description, task.description) &&
+                Objects.equals(status, task.status) &&
+                Objects.equals(createdAt, task.createdAt) &&
+                Objects.equals(updatedAt, task.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(id, description, status, createdAt, updatedAt);
     }
 }
