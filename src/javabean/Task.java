@@ -63,11 +63,11 @@ public class Task {
     @Override
     public String toString() {
         return "{" +
-                "'id': " + id +
-                ", 'description': '" + description + '\'' +
-                ", 'status': '" + status + '\'' +
-                ", 'createdAt': '" + createdAt + '\'' +
-                ", 'updatedAt': '" + updatedAt + '\'' +
+                "\"id\": " + id +
+                ", \"description\": \"" + description + '\"' +
+                ", \"status\": \"" + status + '\"' +
+                ", \"createdAt\": \"" + createdAt + '\"' +
+                ", \"updatedAt\": \"" + updatedAt + '\"' +
                 '}';
     }
 
