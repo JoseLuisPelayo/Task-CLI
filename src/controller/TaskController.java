@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javabean.Task;
 import repository.TaskRepository;
+import repository.TaskStatusRepository;
 
 public class TaskController {
 	TaskRepository repository;
@@ -60,8 +61,16 @@ public class TaskController {
 	
 	public void markInProgress(int id) {
 		Task task = this.repository.getById(id);
+
+		if (task.getStatus().getStatus().equals(TaskStatusRepository.IN_PROGRESS.getStatus())){
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " is already in progress");
+			System.out.println("********************************************");
+			return;
+		}
+
 		task.changeStatusToInProgress();
-		
+
 		if (this.repository.update(task)) {
 			System.out.println("********************************************");
 			System.out.println("	Task with id: " + id + " updated");
@@ -76,6 +85,14 @@ public class TaskController {
 
 	public void markDone(int id) {
 		Task task = this.repository.getById(id);
+
+		if (task.getStatus().getStatus().equals(TaskStatusRepository.DONE.getStatus())){
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " is already done");
+			System.out.println("********************************************");
+			return;
+		}
+
 		task.changeStatusToDone();
 
 		if (this.repository.update(task)) {
@@ -98,7 +115,41 @@ public class TaskController {
 								+ " -- " + tasks.get(i).getStatus().getStatus());
 		}
 		System.out.println("********************************************");
-		
+	}
+
+	public void listToDo() {
+		ArrayList<Task> tasks = this.repository.getAll();
+		System.out.println("********************************************");
+		for (int i = 0; i < tasks.size(); i++) {
+			if (TaskStatusRepository.TO_DO.getStatus().equals(tasks.get(i).getStatus().getStatus())) {
+				System.out.println("    id: " + tasks.get(i).getId() + " -- "
+									+ tasks.get(i).getDescription()
+									+ " -- " + tasks.get(i).getStatus().getStatus());
+			}
+		}
+		System.out.println("********************************************");
+	}
+
+	public void listDone() {
+		ArrayList<Task> tasks = this.repository.getAll();
+		System.out.println("********************************************");
+		for (int i = 0; i < tasks.size(); i++) {
+			if (TaskStatusRepository.DONE.getStatus().equals(tasks.get(i).getStatus().getStatus()))
+                System.out.println("    " + (i + 1) + " -- " + tasks.get(i).getDescription()
+                        + " -- " + tasks.get(i).getStatus().getStatus());
+		}
+			System.out.println("********************************************");
+	}
+
+	public void listInProgress() {
+		ArrayList<Task> tasks = this.repository.getAll();
+		System.out.println("********************************************");
+		for (int i = 0; i < tasks.size(); i++) {
+			if (TaskStatusRepository.IN_PROGRESS.getStatus().equals(tasks.get(i).getStatus().getStatus()))
+				System.out.println("    " + (i + 1) + " -- " + tasks.get(i).getDescription()
+						+ " -- " + tasks.get(i).getStatus().getStatus());
+		}
+		System.out.println("********************************************");
 	}
 	
 	

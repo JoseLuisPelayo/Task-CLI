@@ -8,9 +8,11 @@ public class Main {
         	TaskController controller = new TaskController();
         	controller.add("Tomar café");
 //        	controller.delete(1);
-//        	controller.update(27, "regalo day");
+        	controller.update(4, "regalo day");
         	controller.markInProgress(3);
-        	controller.list();
+			controller.markInProgress(4);
+//			controller.markDone(2);
+        	controller.listToDo();
         
 //        System.out.println(taskList.loadTaskFromJson().getLast());
     }
