@@ -1,23 +1,34 @@
 package javabean;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
     int id;
     String description;
     String status;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+    String createdAt;
+    String updatedAt;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public Task() {
     }
+    
+    public Task(int id, String description, String status, String createdAt, String updatedAt) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.status = status;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
 
-    public Task(String description) {
+	public Task(int id, String description) {
+		this.id = id;
         this.description = description;
         this.status = "not done";
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = formatter.format(LocalDateTime.now());
     }
 
     public String getDescription() {
@@ -44,31 +55,33 @@ public class Task {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt = String.valueOf(createdAt);
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "\"id\": " + id +
-                ", \"description\": \"" + description + '\"' +
-                ", \"status\": \"" + status + '\"' +
-                ", \"createdAt\": \"" + createdAt + '\"' +
-                ", \"updatedAt\": \"" + updatedAt + '\"' +
-                '}';
+    	return String.format("""
+    					 {
+    					 "id": 				%d,
+    					 "descripcion":		"%s",
+    					 "status":			"%s",
+    					 "createdAt": 		"%s",
+    					 "updatedAt": 		%s
+    					 }
+    					 """, id, description, status, createdAt, updatedAt);
     }
 
     @Override
