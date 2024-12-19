@@ -5,13 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
-    int id;
-    String description;
-    String status;
-    String createdAt;
-    String updatedAt;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
+    private int id;
+    private String description;
+    private String status;
+    private String createdAt;
+    private String updatedAt;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    
     public Task() {
     }
     
