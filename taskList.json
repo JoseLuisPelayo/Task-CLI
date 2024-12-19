@@ -1,23 +1,23 @@
 [
 {
+"id": 				1,
+"descripcion":		"Tomar café",
+"status":			"TO_DO",
+"createdAt": 		"20/12/2024 00:12",
+"updatedAt": 		"null"
+},
+{
 "id": 				2,
 "descripcion":		"Tomar café",
 "status":			"TO_DO",
-"createdAt": 		"19/12/2024 22:46",
+"createdAt": 		"20/12/2024 00:13",
 "updatedAt": 		"null"
 },
 {
 "id": 				3,
 "descripcion":		"Tomar café",
-"status":			"TO_DO",
-"createdAt": 		"19/12/2024 23:45",
-"updatedAt": 		"null"
-},
-{
-"id": 				4,
-"descripcion":		"Tomar café",
-"status":			"TO_DO",
-"createdAt": 		"19/12/2024 23:46",
-"updatedAt": 		"null"
+"status":			"IN_PROGRESS",
+"createdAt": 		"20/12/2024 00:13",
+"updatedAt": 		"20/12/2024 00:13"
 }
 ]

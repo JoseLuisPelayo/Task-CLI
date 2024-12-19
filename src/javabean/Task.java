@@ -99,4 +99,13 @@ public class Task {
     public int hashCode() {
         return Objects.hash(id, description, status, createdAt, updatedAt);
     }
+
+    public void changeStatusToInProgress() {
+    	this.status = TaskStatusRepository.IN_PROGRESS;
+    }
+    
+    public void changeStatusToDone() {
+    	this.status = TaskStatusRepository.DONE;
+    }
+
 }

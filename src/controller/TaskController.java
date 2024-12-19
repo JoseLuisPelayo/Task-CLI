@@ -58,6 +58,38 @@ public class TaskController {
 		}
 	}
 	
+	public void markInProgress(int id) {
+		Task task = this.repository.getById(id);
+		task.changeStatusToInProgress();
+		
+		if (this.repository.update(task)) {
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " updated");
+			System.out.println("	Status: " + task.getStatus().getStatus());
+			System.out.println("********************************************");
+		} else {			
+			System.out.println("**********************************************");
+			System.out.println("	Task with id: " + id + " was not found");
+			System.out.println("**********************************************");
+		}
+	}
+
+	public void markDone(int id) {
+		Task task = this.repository.getById(id);
+		task.changeStatusToDone();
+
+		if (this.repository.update(task)) {
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " updated");
+			System.out.println("	Status: " + task.getStatus().getStatus());
+			System.out.println("********************************************");
+		} else {
+			System.out.println("**********************************************");
+			System.out.println("	Task with id: " + id + " was not found");
+			System.out.println("**********************************************");
+		}
+	}
+	
 	public void list() {
 		ArrayList<Task> tasks = this.repository.getAll();
 		System.out.println("********************************************");
@@ -68,7 +100,6 @@ public class TaskController {
 		System.out.println("********************************************");
 		
 	}
-	
 	
 	
 	
