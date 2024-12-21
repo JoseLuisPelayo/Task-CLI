@@ -61,7 +61,11 @@ public class TaskController {
 	public void markInProgress(int id) {
 		Task task = this.repository.getById(id);
 
-		if (task.getStatus().getStatus().equals(TaskStatusRepository.IN_PROGRESS.getStatus())){
+		if(task.getId() == 0) {
+			System.out.println("**********************************************");
+			System.out.println("	Task with id: " + id + " was not found");
+			System.out.println("**********************************************");
+		} else if (task.getStatus().getStatus().equals(TaskStatusRepository.IN_PROGRESS.getStatus())){
 			System.out.println("********************************************");
 			System.out.println("	Task with id: " + id + " is already in progress");
 			System.out.println("********************************************");
@@ -75,17 +79,17 @@ public class TaskController {
 			System.out.println("	Task with id: " + id + " updated");
 			System.out.println("	Status: " + task.getStatus().getStatus());
 			System.out.println("********************************************");
-		} else {			
-			System.out.println("**********************************************");
-			System.out.println("	Task with id: " + id + " was not found");
-			System.out.println("**********************************************");
 		}
 	}
 
 	public void markDone(int id) {
 		Task task = this.repository.getById(id);
 
-		if (task.getStatus().getStatus().equals(TaskStatusRepository.DONE.getStatus())){
+		if(task.getId() == 0) {
+			System.out.println("**********************************************");
+			System.out.println("	Task with id: " + id + " was not found");
+			System.out.println("**********************************************");
+		} else if (task.getStatus().getStatus().equals(TaskStatusRepository.DONE.getStatus())){
 			System.out.println("********************************************");
 			System.out.println("	Task with id: " + id + " is already done");
 			System.out.println("********************************************");
@@ -99,10 +103,6 @@ public class TaskController {
 			System.out.println("	Task with id: " + id + " updated");
 			System.out.println("	Status: " + task.getStatus().getStatus());
 			System.out.println("********************************************");
-		} else {
-			System.out.println("**********************************************");
-			System.out.println("	Task with id: " + id + " was not found");
-			System.out.println("**********************************************");
 		}
 	}
 	
