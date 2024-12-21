@@ -2,18 +2,23 @@ package repository;
 
 import javabean.Task;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskRepository {
-	private File file = new File("./taskList.json");
-	private ArrayList<Task> taskList = loadTaskFromJson();
+	private final static Path FILE_PATH = Path.of("taskList.json");
+	private ArrayList<Task> taskList;
 
 	public TaskRepository() throws IOException {
-		if (file.createNewFile())
+		if (!Files.exists(FILE_PATH)) {
+			Files.createFile(FILE_PATH);
 			System.out.println("	Welcome to my task-cli-app");
+		}
 		else
 			System.out.println("		Task-cli-app");
+		this.taskList = loadTaskFromJson();
 	}
 
 	public void add(String task) throws IOException {
@@ -62,7 +67,7 @@ public class TaskRepository {
 		}
 			return new Task();
 	}
-	
+
 	private ArrayList<Task> loadTaskFromJson() {
 		String stringList = readJson();
 		ArrayList<Task> taskList = new ArrayList<>();
@@ -70,30 +75,27 @@ public class TaskRepository {
 		if (stringList.isBlank())
 			return taskList;
 
-		// le quitamos los corchetes y la primera llave y las llaves de cierre
 		stringList = stringList.replace("]", "")
 								.replace("[", "")
 								.replace("}", "")
 								.trim().substring(1);
 
-		// separa en un array por la llave de los objetos
 		String[] strings = stringList.split("[{]");
 		for (String string : strings) {
-			// separa el string en atributos por la coma
+			string = string.replaceAll("\"", "");
 			String[] taskString = string.split(",");
 
-			// creamos un Task sacando los datos que nos interesan
 			Task task = new Task(
 					Integer.parseInt(taskString[0].substring(taskString[0].indexOf(':') + 1).trim()),
-					taskString[1].substring(taskString[1].indexOf(':') + 1).replaceAll("\"", "").trim(),
+					taskString[1].substring(taskString[1].indexOf(':') + 1).trim(),
 					TaskStatusRepository.valueOf(taskString[2].substring(taskString[2].indexOf(':') + 1)
-																					.replaceAll("[\"]", "")
 																					.trim()
 																					.toUpperCase()
 																					.replace(" ", "_")
 																					),
-					taskString[3].substring(taskString[3].indexOf(':') + 1).replaceAll("[\"]", "").trim(),
-					taskString[4].substring(taskString[4].indexOf(':') + 1).replaceAll("[\"]", "").trim());
+					taskString[3].substring(taskString[3].indexOf(':') + 1).trim(),
+					taskString[4].substring(taskString[4].indexOf(':') + 1).trim()
+					);
 
 			taskList.add(task);
 		}
@@ -101,7 +103,7 @@ public class TaskRepository {
 	}
 
 	private String readJson() {
-		try (FileReader fileReader = new FileReader(this.file.getPath())) {
+		try (FileReader fileReader = new FileReader(FILE_PATH.toFile())) {
 			String jsonTasks = "";
 
 			BufferedReader buffer = new BufferedReader(fileReader);
@@ -131,7 +133,7 @@ public class TaskRepository {
             
         stringToJson += taskList.getLast() +"]";
 
-		try(Writer writer = new FileWriter(file)) {
+		try(Writer writer = new FileWriter(FILE_PATH.toFile())) {
 			writer.write(stringToJson);
 		}catch(IOException e) {
 			e.printStackTrace();
