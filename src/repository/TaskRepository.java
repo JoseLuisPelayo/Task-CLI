@@ -14,9 +14,11 @@ public class TaskRepository {
 	public TaskRepository() throws IOException {
 		if (!Files.exists(FILE_PATH)) {
 			Files.createFile(FILE_PATH);
+			System.out.println("********************************************");
 			System.out.println("	Welcome to my task-cli-app");
 		}
 		else
+			System.out.println("********************************************");
 			System.out.println("		Task-cli-app");
 		this.taskList = loadTaskFromJson();
 	}
