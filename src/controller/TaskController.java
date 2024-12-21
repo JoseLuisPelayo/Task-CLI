@@ -11,7 +11,6 @@ public class TaskController {
 	TaskRepository repository;
 
 	public TaskController() {
-		super();
 		try {
 			this.repository = new TaskRepository();
 		} catch (IOException e) {
@@ -33,13 +32,13 @@ public class TaskController {
 	public void update(int id, String description) {
 		Task task = this.repository.getById(id);
 		task.setDescription(description);
-		
+
 		if (this.repository.update(task)) {
 			System.out.println("********************************************");
 			System.out.println("	Task with id: " + id + " updated");
 			System.out.println("	Description: " + description);
 			System.out.println("********************************************");
-		} else {			
+		} else {
 			System.out.println("**********************************************");
 			System.out.println("	Task with id: " + id + " was not found");
 			System.out.println("**********************************************");
@@ -120,40 +119,36 @@ public class TaskController {
 	public void listToDo() {
 		ArrayList<Task> tasks = this.repository.getAll();
 		System.out.println("********************************************");
-		for (int i = 0; i < tasks.size(); i++) {
-			if (TaskStatusRepository.TO_DO.getStatus().equals(tasks.get(i).getStatus().getStatus())) {
-				System.out.println("    id: " + tasks.get(i).getId() + " -- "
-									+ tasks.get(i).getDescription()
-									+ " -- " + tasks.get(i).getStatus().getStatus());
-			}
-		}
+        for (Task task : tasks) {
+            if (TaskStatusRepository.TO_DO.getStatus().equals(task.getStatus().getStatus())) {
+                System.out.println("    id: " + task.getId() + " -- "
+                        + task.getDescription()
+                        + " -- " + task.getStatus().getStatus());
+            }
+        }
 		System.out.println("********************************************");
 	}
 
 	public void listDone() {
 		ArrayList<Task> tasks = this.repository.getAll();
 		System.out.println("********************************************");
-		for (int i = 0; i < tasks.size(); i++) {
-			if (TaskStatusRepository.DONE.getStatus().equals(tasks.get(i).getStatus().getStatus()))
-                System.out.println("    " + (i + 1) + " -- " + tasks.get(i).getDescription()
-                        + " -- " + tasks.get(i).getStatus().getStatus());
-		}
+        for (Task task : tasks) {
+            if (TaskStatusRepository.DONE.getStatus().equals(task.getStatus().getStatus()))
+                System.out.println("    " + task.getId() + " -- " + task.getDescription()
+                        + " -- " + task.getStatus().getStatus());
+        }
 			System.out.println("********************************************");
 	}
 
 	public void listInProgress() {
 		ArrayList<Task> tasks = this.repository.getAll();
 		System.out.println("********************************************");
-		for (int i = 0; i < tasks.size(); i++) {
-			if (TaskStatusRepository.IN_PROGRESS.getStatus().equals(tasks.get(i).getStatus().getStatus()))
-				System.out.println("    " + (i + 1) + " -- " + tasks.get(i).getDescription()
-						+ " -- " + tasks.get(i).getStatus().getStatus());
-		}
+        for (Task task : tasks) {
+            if (TaskStatusRepository.IN_PROGRESS.getStatus().equals(task.getStatus().getStatus()))
+                System.out.println("    " + task.getId() + " -- " + task.getDescription()
+                        + " -- " + task.getStatus().getStatus());
+        }
 		System.out.println("********************************************");
 	}
-	
-	
-	
-	
-	
+
 }
