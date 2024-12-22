@@ -79,6 +79,17 @@ public class Task_cli_app {
                     taskController.delete(Integer.parseInt(args[1]));
                     break;
 
+                case "mark-todo":
+                    if (args.length < 2) {
+                        System.out.println("******************************************************");
+                        System.out.println("- mark-todo [id] : Mark a task as to do");
+                        System.out.println("******************************************************");
+                        return;
+                    }
+
+                    taskController.markToDo(Integer.parseInt(args[1]));
+                    break;
+
                 case "mark-in-progress":
                     if (args.length < 2) {
                         System.out.println("******************************************************");

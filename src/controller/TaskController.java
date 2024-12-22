@@ -57,6 +57,30 @@ public class TaskController {
 			System.out.println("********************************************");	
 		}
 	}
+
+	public void markToDo(int id) {
+		Task task = this.repository.getById(id);
+
+		if(task.getId() == 0) {
+			System.out.println("**********************************************");
+			System.out.println("	Task with id: " + id + " was not found");
+			System.out.println("**********************************************");
+		} else if (task.getStatus().getStatus().equals(TaskStatusRepository.TO_DO.getStatus())){
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " is already to do");
+			System.out.println("********************************************");
+			return;
+		}
+
+		task.changeStatusToToDo();
+
+		if (this.repository.update(task)) {
+			System.out.println("********************************************");
+			System.out.println("	Task with id: " + id + " updated");
+			System.out.println("	Status: " + task.getStatus().getStatus());
+			System.out.println("********************************************");
+		}
+	}
 	
 	public void markInProgress(int id) {
 		Task task = this.repository.getById(id);

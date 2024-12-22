@@ -108,4 +108,7 @@ public class Task {
     	this.status = TaskStatusRepository.DONE;
     }
 
+    public void changeStatusToToDo() {
+        this.status = TaskStatusRepository.TO_DO;
+    }
 }
